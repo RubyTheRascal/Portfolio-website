@@ -1,0 +1,29 @@
+:root {
+  color-scheme: light dark;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000814; /* Matched to your COLORS.bg */
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Clean up scrollbar for your dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000814; 
+}
+::-webkit-scrollbar-thumb {
+  background: #0353A4; 
+  border-radius: 4px;
+}
