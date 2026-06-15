@@ -48,7 +48,7 @@ const PROJECTS = [
     github: "https://github.com/RubyTheRascal/Smart-AI-Bill-Summarizer",
   },
   {
-    title: "Phishing Detection Lab",
+    title: "Phishing Detectio",
     badge: "Lab",
     desc: "Set up a website that used Axios, Cheerio and Node to check whether a link is a link to a phishing website or not.",
     tags: ["Axios", "Cheerio", "Node.js", "HTML", "CSS", "JS"],
