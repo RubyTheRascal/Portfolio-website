@@ -38,18 +38,21 @@ const PROJECTS = [
     badge: "e-commerce",
     desc: "Built a website to help with the simple booking/cancelling of turf in your set location.",
     tags: ["HTML", "CSS", "JS"],
+    github: "https://github.com/RubyTheRascal/Voltrix---Turf-Booking",
   },
   {
     title: "AI Assisted OCR Bill Summarizer",
     badge: "SaaS",
     desc: "A website to digitize your bills and then store them on your PC and then make a summary of your expenses.",
     tags: ["HTML", "CSS", "API", "Python", "SQLite", "EasyOCR", "JS"],
+    github: "https://github.com/RubyTheRascal/Smart-AI-Bill-Summarizer",
   },
   {
     title: "Phishing Detection Lab",
     badge: "Lab",
     desc: "Set up a website that used Axios, Cheerio and Node to check whether a link is a link to a phishing website or not.",
     tags: ["Axios", "Cheerio", "Node.js", "HTML", "CSS", "JS"],
+    github: "https://github.com/RubyTheRascal/Phishing-Detector",
   },
 ];
 
@@ -555,8 +558,8 @@ function Projects() {
       <FadeIn>
         <SectionHead eyebrow="// 03 — projects" title="Featured Work" />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.4rem" }}>
-          {PROJECTS.map(({ title, badge, desc, tags }) => (
-            <ProjectCard key={title} title={title} badge={badge} desc={desc} tags={tags} />
+          {PROJECTS.map(({ title, badge, desc, tags, github }) => (
+            <ProjectCard key={title} title={title} badge={badge} desc={desc} tags={tags} github={github} />
           ))}
         </div>
       </FadeIn>
@@ -571,10 +574,12 @@ interface ProjectCardProps {
   badge: string;
   desc: string;
   tags: string[];
+  github?: string;
 }
 
-function ProjectCard({ title, badge, desc, tags }: ProjectCardProps) {
+function ProjectCard({ title, badge, desc, tags, github }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
+  const [ghHovered, setGhHovered] = useState(false);
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -585,6 +590,7 @@ function ProjectCard({ title, badge, desc, tags }: ProjectCardProps) {
         borderRadius: 10, padding: "1.4rem",
         transition: "border-color 0.2s",
         cursor: "default",
+        display: "flex", flexDirection: "column",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.7rem" }}>
@@ -597,15 +603,41 @@ function ProjectCard({ title, badge, desc, tags }: ProjectCardProps) {
         } as React.CSSProperties}>{badge}</span>
       </div>
       <p style={{ fontSize: 13, color: COLORS.dim, lineHeight: 1.65, marginBottom: "1rem" }}>{desc}</p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-        {tags.map((t) => (
-          <span key={t} style={{
-            fontSize: 11, ...mono, color: COLORS.dim,
-            background: "rgba(255,255,255,0.03)",
-            border: `1px solid rgba(3,83,164,0.2)`,
-            borderRadius: 4, padding: "2px 7px",
-          } as React.CSSProperties}>{t}</span>
-        ))}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem", marginTop: "auto" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+          {tags.map((t) => (
+            <span key={t} style={{
+              fontSize: 11, ...mono, color: COLORS.dim,
+              background: "rgba(255,255,255,0.03)",
+              border: `1px solid rgba(3,83,164,0.2)`,
+              borderRadius: 4, padding: "2px 7px",
+            } as React.CSSProperties}>{t}</span>
+          ))}
+        </div>
+        {github && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${title} on GitHub`}
+            onMouseEnter={() => setGhHovered(true)}
+            onMouseLeave={() => setGhHovered(false)}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center",
+              width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+              background: ghHovered ? "rgba(3,83,164,0.28)" : "rgba(3,83,164,0.10)",
+              border: `1px solid ${ghHovered ? COLORS.borderHi : COLORS.border}`,
+              color: ghHovered ? COLORS.hi : COLORS.muted,
+              textDecoration: "none",
+              transition: "background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s",
+              boxShadow: ghHovered ? "0 0 10px rgba(3,83,164,0.4)" : "none",
+            } as React.CSSProperties}
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+          </a>
+        )}
       </div>
     </div>
   );
